@@ -1,5 +1,7 @@
 docker container for libcgal-dev, and checkout and build python3 bindings. includes a python script for region growing. tested with .pts files. Usage:
 
+> build ~300.0s
+
 Run these commands in the Dockerfile folder (adjust local paths):
 
 ```powershell
