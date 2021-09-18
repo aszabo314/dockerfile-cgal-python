@@ -10,7 +10,7 @@ from CGAL.CGAL_Point_set_3 import Point_set_3
 from CGAL.CGAL_Shape_detection import *
 
 import os
-filename = "synth_bridge.pts"
+filename = "Jb_small.pts"
 
 datadir = "/things"
 datafile = datadir+'/'+filename
@@ -24,25 +24,25 @@ plane_map = points.add_int_map("plane_index")
 et = datetime.datetime.now()
 print(et-bt, "import time")
 
-# bt = datetime.datetime.now()
-# print("region growing")
-# nb_planes = region_growing(points, plane_map, min_points=2000, epsilon=0.15, cluster_epsilon=0.15, k=13)
-# print(nb_planes, "planes detected")
-# et = datetime.datetime.now()
-# print(et-bt, "region growing time")
-
-print("ransac")
 bt = datetime.datetime.now()
-planes = efficient_RANSAC(points, plane_map,
-                          min_points=2000,
-                          epsilon=0.15,
-                          cluster_epsilon=0.15,
-                          normal_threshold=0.85,
-                          planes=True, cylinders=False,
-                          spheres=False, cones=False, tori=False)
-print(len(planes), "ransac planes")
+print("region growing")
+nb_planes = region_growing(points, plane_map, min_points=2000, epsilon=0.15, cluster_epsilon=1.0, normal_treshold=0.0, k=0)
+print(nb_planes, "planes detected")
 et = datetime.datetime.now()
-print(et-bt, "ransac time")
+print(et-bt, "region growing time")
+
+# print("ransac")
+# bt = datetime.datetime.now()
+# planes = efficient_RANSAC(points, plane_map,
+#                           min_points=1000,
+#                           epsilon=0.15,
+#                           cluster_epsilon=0.5,
+#                           normal_threshold=0.0,
+#                           planes=True, cylinders=False,
+#                           spheres=False, cones=False, tori=False)
+# print(len(planes), "ransac planes")
+# et = datetime.datetime.now()
+# print(et-bt, "ransac time")
 
 print("write out file..")
 offf = open('/things/out-'+str(int(time.time()))+'.pts', 'a')
